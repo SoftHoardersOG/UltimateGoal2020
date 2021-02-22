@@ -1,0 +1,145 @@
+package org.firstinspires.ftc.teamcode.HardwarePack;
+
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvPipeline;
+
+public class HardwareUtil {
+
+    private HardwareUtil() {
+    }
+
+    public static DcMotor getDC(String name, HardwareMap hm) {
+        try {
+            return hm.get(DcMotor.class, name);
+        } catch (Exception exception) {
+            return null;
+        }
+    }
+
+    public static  BNO055IMU getIMU(String name, HardwareMap hm){
+        try{
+            return hm.get(BNO055IMU.class,name);
+        } catch (Exception exception){
+            return null;
+        }
+    }
+
+    public static Servo getServo(String name, HardwareMap hm) {
+        try {
+            return hm.get(Servo.class, name);
+        } catch (Exception exception) {
+            return null;
+        }
+    }
+
+    public static CRServo getCRServo(String name, HardwareMap hm) {
+        try {
+            return hm.get(CRServo.class, name);
+        } catch (Exception exception) {
+            return null;
+        }
+    }
+
+    public static WebcamName getWebcam(String name, HardwareMap hm){
+        try{
+            return  hm.get(WebcamName.class,name);
+        }
+        catch (Exception exception){
+            return null;
+        }
+    }
+
+    public static DigitalChannel getDigitalChannel(String name, HardwareMap hm) {
+        try {
+            return hm.get(DigitalChannel.class, name);
+        } catch (Exception exception) {
+            return null;
+        }
+    }
+
+    public static void ResetEncoders(DcMotor... dcMotors) {
+        for (DcMotor dcMotor : dcMotors) {
+            if (dcMotor != null) {
+                dcMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                dcMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            }
+        }
+    }
+
+    public static void powerBehaviorChanging(DcMotor... dcMotors) {
+        for (DcMotor dcMotor : dcMotors) {
+            if (dcMotor != null)
+                dcMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        }
+    }
+
+    public static void directionChanging(DcMotor... dcMotors) {
+        for (DcMotor dcMotor : dcMotors) {
+            if (dcMotor != null)
+                dcMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        }
+    }
+
+    public static void directionChanging(Servo... servos) {
+        for (Servo servo : servos) {
+            if (servo != null)
+                servo.setDirection(Servo.Direction.REVERSE);
+        }
+    }
+
+    public static void OpenCVSetup(HardwareMap hm, OpenCvPipeline process, Telemetry telemetry, WebcamName webcam) {
+        if(webcam!=null && process!=null) {
+
+            int cameraMonitorID = hm.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hm.appContext.getPackageName());
+            telemetry.addLine("Monitor ID DONE!");
+            telemetry.update();
+
+            OpenCvCamera cvCamera = OpenCvCameraFactory.getInstance().createWebcam(webcam, cameraMonitorID);
+            telemetry.addLine("CVCam initialisation DONE!");
+            telemetry.update();
+
+            for (int i = 1; i <= 100; i++)
+                cvCamera.openCameraDevice();
+            telemetry.addLine("Camera opened DONE!");
+            telemetry.update();
+
+            cvCamera.setPipeline(process);
+            telemetry.addLine("Pipeline seted DONE!");
+            telemetry.update();
+
+            cvCamera.startStreaming(640, 480);
+            telemetry.addLine("Stream started DONE!");
+            telemetry.update();
+        }
+    }
+
+    public static void InitializeIMU( BNO055IMU imu){
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
+        parameters.loggingEnabled      = true;
+        parameters.loggingTag          = "IMU";
+        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+        try{
+            imu.initialize(parameters);
+        } catch (Exception exception){
+            //Imu is null
+        }
+    }
+
+
+
+}
