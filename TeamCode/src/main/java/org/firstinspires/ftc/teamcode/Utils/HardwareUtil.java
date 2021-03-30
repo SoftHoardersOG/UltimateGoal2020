@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.HardwarePack;
+package org.firstinspires.ftc.teamcode.Utils;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
+import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -14,6 +15,8 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvPipeline;
+
+import java.util.Objects;
 
 public class HardwareUtil {
 
@@ -85,6 +88,17 @@ public class HardwareUtil {
         }
     }
 
+//    public static void directionChanging(HardwareDevice...objects){
+//        for(HardwareDevice object : objects){
+//            try {
+//                DcMotor aux = (DcMotor) object;
+//                aux.setDirection(DcMotorSimple.Direction.REVERSE);
+//            } catch (Exception e){
+//                System.out.println("is null!");
+//            }
+//        }
+//    }
+
     public static void directionChanging(DcMotor... dcMotors) {
         for (DcMotor dcMotor : dcMotors) {
             if (dcMotor != null)
@@ -96,6 +110,13 @@ public class HardwareUtil {
         for (Servo servo : servos) {
             if (servo != null)
                 servo.setDirection(Servo.Direction.REVERSE);
+        }
+    }
+
+    public static void directionChanging(CRServo... crServos) {
+        for (CRServo servo : crServos) {
+            if (servo != null)
+                servo.setDirection(CRServo.Direction.REVERSE);
         }
     }
 

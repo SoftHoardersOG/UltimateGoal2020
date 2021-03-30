@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.TeleOperated;
 
 import com.qualcomm.robotcore.hardware.Gamepad;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 
 

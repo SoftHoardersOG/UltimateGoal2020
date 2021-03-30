@@ -5,71 +5,52 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name="TrowTest" ,group="Tests")
-public class AruncareTest extends LinearOpMode{
+import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
+import org.firstinspires.ftc.teamcode.Utils.ChangeState;
+import org.firstinspires.ftc.teamcode.Utils.OneTap;
+
+@TeleOp(name = "TrowTest", group = "Tests")
+public class AruncareTest extends LinearOpMode {
     private static final double push = 0.05;
     private static final double free = 0.16;
-    DcMotor leftTrow, rightTrow;
-    Servo trowLoader;
-
+    private static final double shootSpeed = 0.9;
+    private static final double boosterSpeed = 1;
+    private static final int shootTime = 40;
+    private static final int returnTime = 70;
+    OneTap idler = new OneTap();
+    OneTap motor = new OneTap();
+    ChangeState shooter = new ChangeState();
 
     @Override
     public void runOpMode() {
-        leftTrow = hardwareMap.get(DcMotor.class,"left");
-        rightTrow = hardwareMap.get(DcMotor.class,"right");
-        trowLoader = hardwareMap.get(Servo.class,"loader");
-        telemetry.addLine("Initialisation completed!");
-        telemetry.update();
+        Hardware.init(hardwareMap, telemetry);
+
         waitForStart();
-        trowLoader.setPosition(free);
-        boolean fristPress=true;
-        boolean firstPressMotor=true;
-        boolean motorState=false;
-        while (opModeIsActive() && !isStopRequested()){
+        Hardware.shooter_idler.setPosition(free);
 
-            if(gamepad1.left_bumper && firstPressMotor){
-                if(!motorState){
-                    leftTrow.setPower(-0.9);
-                    rightTrow.setPower(0.9);
-                    motorState=true;
-                }
-                else{
-                    leftTrow.setPower(0);
-                    rightTrow.setPower(0);
-                    motorState=false;
-                }
-                firstPressMotor=false;
-            }
-            if(!gamepad1.left_bumper){
-                firstPressMotor=true;
+        boolean motorState = false;
+        while (opModeIsActive() && !isStopRequested()) {
+
+            shooter.changeMotorState(motor.onPress(gamepad1.left_bumper), shootSpeed, Hardware.shooter_left, Hardware.shooter_right);
+
+            if (idler.onPress(gamepad1.a)) {
+                Hardware.shooter_idler.setPosition(push);
+                sleep(shootTime);
+                Hardware.shooter_idler.setPosition(free);
             }
 
-            if(gamepad1.a && fristPress){
-                trowLoader.setPosition(push);
-                sleep(40);
-                trowLoader.setPosition(free);
-                fristPress = false;
+            if (gamepad1.b) {
+                Hardware.shooter_idler.setPosition(push);
+                sleep(shootTime);
+                Hardware.shooter_idler.setPosition(free);
+                sleep(returnTime);
             }
-            if(!gamepad1.a){
-                fristPress=true;
+            if (gamepad1.x) {
+                Hardware.shooter_idler.setPosition(push);
             }
-
-            if(gamepad1.b){
-                trowLoader.setPosition(push);
-                sleep(50);
-                trowLoader.setPosition(free);
-                sleep(70);
-            }
-            if(gamepad1.x){
-                trowLoader.setPosition(push);
-            }
-            if(gamepad1.y){
-                trowLoader.setPosition(free);
+            if (gamepad1.y) {
+                Hardware.shooter_idler.setPosition(free);
             }
         }
-
-
-
-
     }
 }
