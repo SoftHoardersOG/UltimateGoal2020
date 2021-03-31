@@ -26,5 +26,4 @@ public class DelayedAction {
         actionCalled = false;
         return result;
     }
-
 }

@@ -39,35 +39,51 @@ public class Shooter {
 
     }
 
-    public static void ShooterControl(Gamepad gamepad) {
+    private static void ContinuousShooting(boolean buttonForContinuousShooting) {
+        if (buttonForContinuousShooting) {
+            shootServoContinuous.callAction();
+        }
+        if (shootServoContinuous.runAction()) {
+            Hardware.shooter_idler.setPosition(push);
+            returnServoContinuous.callAction();
+        }
+        if (returnServoContinuous.runAction())
+            Hardware.shooter_idler.setPosition(free);
+    }
 
-        shooter.changeMotorState(motor.onPress(gamepad.left_bumper), shootSpeed, Hardware.shooter_left, Hardware.shooter_right);
+    private static void SequentialShooting(boolean buttonForSequentialShooting) {
 
-        if (idler.onPress(gamepad.a)) {
+        if (idler.onPress(buttonForSequentialShooting)) {
             Hardware.shooter_idler.setPosition(push);
             returnServo.callAction();
-
         }
         if (returnServo.runAction()) {
             Hardware.shooter_idler.setPosition(free);
         }
+    }
 
-        if (gamepad.b) {
-            shootServoContinuous.callAction();
-            if (shootServoContinuous.runAction()) {
-                Hardware.shooter_idler.setPosition(push);
-                returnServoContinuous.callAction();
-            }
-            if (returnServoContinuous.runAction())
-                Hardware.shooter_idler.setPosition(free);
-        }
-        if (gamepad.x) {
+    private static void ReturnPosition(boolean buttonForReturnPosition) {
+        if (buttonForReturnPosition) {
             Hardware.shooter_idler.setPosition(push);
         }
-        if (gamepad.y) {
+    }
+
+    private static void ShootPosition(boolean buttonForShootPosition) {
+        if (buttonForShootPosition) {
             Hardware.shooter_idler.setPosition(free);
         }
+    }
 
+    public static void ShootingMotors(boolean buttonForStartingTheShooter) {
+        shooter.changeMotorState(motor.onPress(buttonForStartingTheShooter), shootSpeed, Hardware.shooter_left, Hardware.shooter_right);
+    }
+
+    public static void ShooterControl(Gamepad gamepad) {
+        ShootingMotors(gamepad.left_bumper);
+        SequentialShooting(gamepad.a);
+        ContinuousShooting(gamepad.b);
+        ReturnPosition(gamepad.x);
+        ShootPosition(gamepad.y);
     }
 
 }

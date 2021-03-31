@@ -16,14 +16,16 @@ public class ContinuousPress {
         endTime = 0;
     }
 
-    public double incrementByTime(){
-        if(startTime==0){
+    public double incrementByTime(boolean active){
+        if(!active){
             startTime = timer.milliseconds();
+            return 0;
         }
-        endTime = timer.milliseconds();
-        double elapsed = incrementSpeedPerSecond*(endTime - startTime)/1000;
-        startTime = timer.milliseconds();
-        return elapsed;
+        else {
+            endTime = timer.milliseconds();
+            double elapsed = incrementSpeedPerSecond * (endTime - startTime) / 1000;
+            startTime = timer.milliseconds();
+            return elapsed;
+        }
     }
-
 }

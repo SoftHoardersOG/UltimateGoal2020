@@ -22,8 +22,6 @@ public class mainTeleOp extends LinearOpMode {
             Shooter.ShooterControl(gamepad2);
             ChangeShootingAngle.AngleControl(gamepad1);
             Instruction.Commands(telemetry,true);
-            //Debugs.encoderDebug(telemetry, true);
-            //Debugs.timerDebug(telemetry);
         }
     }
 }

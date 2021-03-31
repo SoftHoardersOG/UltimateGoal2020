@@ -88,17 +88,6 @@ public class HardwareUtil {
         }
     }
 
-//    public static void directionChanging(HardwareDevice...objects){
-//        for(HardwareDevice object : objects){
-//            try {
-//                DcMotor aux = (DcMotor) object;
-//                aux.setDirection(DcMotorSimple.Direction.REVERSE);
-//            } catch (Exception e){
-//                System.out.println("is null!");
-//            }
-//        }
-//    }
-
     public static void directionChanging(DcMotor... dcMotors) {
         for (DcMotor dcMotor : dcMotors) {
             if (dcMotor != null)
@@ -150,7 +139,7 @@ public class HardwareUtil {
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; 
         parameters.loggingEnabled      = true;
         parameters.loggingTag          = "IMU";
         parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
