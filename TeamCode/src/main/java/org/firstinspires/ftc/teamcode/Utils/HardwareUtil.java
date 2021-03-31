@@ -139,7 +139,7 @@ public class HardwareUtil {
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; 
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json";
         parameters.loggingEnabled      = true;
         parameters.loggingTag          = "IMU";
         parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
@@ -149,7 +149,5 @@ public class HardwareUtil {
             //Imu is null
         }
     }
-
-
-
+    
 }
