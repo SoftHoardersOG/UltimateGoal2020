@@ -18,6 +18,8 @@ public class HardwareMapping extends HardwareDeclarations{
         back_left = getDC("back_left", hardwareMap);
         back_right = getDC("back_right", hardwareMap);
 
+        intake = getDC("intake",hardwareMap);
+
         webcam = getWebcam("webcam", hardwareMap);
 
         imu = getIMU("imu", hardwareMap);

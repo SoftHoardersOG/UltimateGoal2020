@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.TeleOperated;
 
-import android.os.Debug;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
@@ -20,6 +18,7 @@ public class mainTeleOp extends LinearOpMode {
         while (!isStopRequested() && opModeIsActive()) {
             Movement.driving(gamepad1);
             Shooter.ShooterControl(gamepad2);
+            Gathering.StartGathering(gamepad2);
             ChangeShootingAngle.AngleControl(gamepad1);
             Instruction.Commands(telemetry,true);
         }

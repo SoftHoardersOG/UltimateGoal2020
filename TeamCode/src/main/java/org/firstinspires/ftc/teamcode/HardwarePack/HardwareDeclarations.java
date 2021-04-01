@@ -11,6 +11,7 @@ public class HardwareDeclarations {
     public static DcMotor front_right, front_left, back_right, back_left;
     public static DcMotor right_encoder, left_encoder, center_encoder;
     public static DcMotor shooter_left,shooter_right;
+    public static DcMotor intake;
     public static Servo angleControlSecvL, angleControlSecvR;
     public static Servo shooter_idler;
     public static CRServo shooter_booster;

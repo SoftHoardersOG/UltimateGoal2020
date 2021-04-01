@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.TeleOperated;
 
-import android.os.Debug;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -62,15 +61,13 @@ public class Shooter {
         }
     }
 
-    private static void ReturnPosition(boolean buttonForReturnPosition) {
-        if (buttonForReturnPosition) {
-            Hardware.shooter_idler.setPosition(push);
-        }
-    }
-
-    private static void ShootPosition(boolean buttonForShootPosition) {
-        if (buttonForShootPosition) {
-            Hardware.shooter_idler.setPosition(free);
+    public static void SingleShooting(boolean buttonForSingleShooting) {
+        if (buttonForSingleShooting) {
+            if (Hardware.shooter_idler.getPosition() == push) {
+                Hardware.shooter_idler.setPosition(free);
+            } else {
+                Hardware.shooter_idler.setPosition(push);
+            }
         }
     }
 
@@ -82,8 +79,7 @@ public class Shooter {
         ShootingMotors(gamepad.left_bumper);
         SequentialShooting(gamepad.a);
         ContinuousShooting(gamepad.b);
-        ReturnPosition(gamepad.x);
-        ShootPosition(gamepad.y);
+        SingleShooting(gamepad.x);
     }
 
 }

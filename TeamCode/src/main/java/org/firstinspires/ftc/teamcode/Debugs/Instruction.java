@@ -14,11 +14,11 @@ public class Instruction {
 
         telemetry.addLine("                GAMEPAD 2");
         telemetry.addLine("       Shooting");
+        telemetry.addLine("---Press right_trigger to control the gathering speed");
         telemetry.addLine("***Press left bumper to activate/deactivate the shooting motors");
         telemetry.addLine("***Press a to shoot one ring");
         telemetry.addLine("***Hold b for continuous mode shooting");
-        telemetry.addLine("***Press x to go to \"shoot\" position");
-        telemetry.addLine("***Press y to go to \"free\" position");
+        telemetry.addLine("***Press x to go to \"shoot\" or \"free\" position ");
         if(update){
             telemetry.update();
         }
