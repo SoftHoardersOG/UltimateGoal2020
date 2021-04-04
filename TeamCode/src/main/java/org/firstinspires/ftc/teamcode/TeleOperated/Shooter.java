@@ -14,10 +14,12 @@ import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.Utils.ChangeState;
 import org.firstinspires.ftc.teamcode.Utils.DelayedAction;
 import org.firstinspires.ftc.teamcode.Utils.OneTap;
+import org.firstinspires.ftc.teamcode.Utils.SingleShooting;
+import org.opencv.android.Utils;
 
 public class Shooter {
-    private static final double push = 0.74;
-    private static final double free = 0.78;
+    public static final double push = 0.74;
+    public static final double free = 0.80;
     private static final double shootSpeed = 0.9;
     private static final int shootTime = 40;
     private static final int returnTime = 70;
@@ -61,16 +63,6 @@ public class Shooter {
         }
     }
 
-    public static void SingleShooting(boolean buttonForSingleShooting) {
-        if (buttonForSingleShooting) {
-            if (Hardware.shooter_idler.getPosition() == push) {
-                Hardware.shooter_idler.setPosition(free);
-            } else {
-                Hardware.shooter_idler.setPosition(push);
-            }
-        }
-    }
-
     public static void ShootingMotors(boolean buttonForStartingTheShooter) {
         shooter.changeMotorState(motor.onPress(buttonForStartingTheShooter), shootSpeed, Hardware.shooter_left, Hardware.shooter_right);
     }
@@ -79,7 +71,7 @@ public class Shooter {
         ShootingMotors(gamepad.left_bumper);
         SequentialShooting(gamepad.a);
         ContinuousShooting(gamepad.b);
-        SingleShooting(gamepad.x);
+        SingleShooting.singleShooting(gamepad.x);
     }
 
 }
