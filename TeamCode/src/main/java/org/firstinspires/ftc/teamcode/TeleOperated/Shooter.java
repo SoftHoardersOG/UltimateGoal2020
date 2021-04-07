@@ -1,30 +1,24 @@
 package org.firstinspires.ftc.teamcode.TeleOperated;
 
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-import org.firstinspires.ftc.teamcode.Debugs.Debugs;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.Utils.ChangeState;
 import org.firstinspires.ftc.teamcode.Utils.DelayedAction;
 import org.firstinspires.ftc.teamcode.Utils.OneTap;
 import org.firstinspires.ftc.teamcode.Utils.SingleShooting;
-import org.opencv.android.Utils;
 
 public class Shooter {
     public static final double push = 0.74;
     public static final double free = 0.80;
     private static final double shootSpeed = 0.9;
-    private static final int shootTime = 40;
-    private static final int returnTime = 70;
-    private static final OneTap idler = new OneTap();
+    private static final int shootTime = 50;
+    private static final int returnTime = 125;
+    private static final OneTap idlerSequential = new OneTap();
     private static final OneTap motor = new OneTap();
+    private static final OneTap idlerContinuous = new OneTap();
     private static final ChangeState shooter = new ChangeState();
     private static final ElapsedTime timer = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
     private static final DelayedAction returnServo = new DelayedAction(shootTime, timer);
@@ -41,20 +35,22 @@ public class Shooter {
     }
 
     private static void ContinuousShooting(boolean buttonForContinuousShooting) {
-        if (buttonForContinuousShooting) {
+        if (idlerContinuous.onPressN(buttonForContinuousShooting,3)) {
             shootServoContinuous.callAction();
         }
         if (shootServoContinuous.runAction()) {
             Hardware.shooter_idler.setPosition(push);
             returnServoContinuous.callAction();
         }
-        if (returnServoContinuous.runAction())
+        if (returnServoContinuous.runAction()){
             Hardware.shooter_idler.setPosition(free);
+            OneTap.incrementCount();
+        }
     }
 
     private static void SequentialShooting(boolean buttonForSequentialShooting) {
 
-        if (idler.onPress(buttonForSequentialShooting)) {
+        if (idlerSequential.onPress(buttonForSequentialShooting)) {
             Hardware.shooter_idler.setPosition(push);
             returnServo.callAction();
         }

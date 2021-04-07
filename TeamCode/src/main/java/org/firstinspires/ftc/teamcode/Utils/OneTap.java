@@ -1,7 +1,30 @@
 package org.firstinspires.ftc.teamcode.Utils;
 
 public class OneTap {
-    public boolean firstPress=true;
+    private boolean firstPress=true;
+    private static int count=0;
+
+    public static void incrementCount(){
+        count++;
+    }
+
+    public boolean onPressN(boolean button, int numberOfActions){
+        boolean result;
+        if(button && firstPress && count<=numberOfActions){
+            result = true;
+            if(count==numberOfActions)
+            firstPress = false;
+        }
+        else{
+            result = false;
+            count=0;
+        }
+        if(!button){
+            firstPress = true;
+        }
+        return  result;
+    }
+
 
     public boolean onPress(boolean button){
         boolean result;

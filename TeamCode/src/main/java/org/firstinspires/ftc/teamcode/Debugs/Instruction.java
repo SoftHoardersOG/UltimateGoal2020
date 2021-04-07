@@ -8,13 +8,14 @@ public class Instruction {
         telemetry.addLine("                GAMEPAD 1");
         telemetry.addLine("***Joysticks for driving");
         telemetry.addLine("       Angle control" );
-        telemetry.addLine("***Press a for incrementing the shooter angle with " + ChangeShootingAngle.getIncrementValue());
-        telemetry.addLine("***Press b for incrementing the shooter angle with -" + ChangeShootingAngle.getIncrementValue());
+        telemetry.addLine("***Press x for incrementing the shooter angle with " + ChangeShootingAngle.getIncrementValue());
+        telemetry.addLine("***Press y for incrementing the shooter angle with -" + ChangeShootingAngle.getIncrementValue());
         telemetry.addLine("***The current abs position is: " + ChangeShootingAngle.getAbsPosition());
 
         telemetry.addLine("                GAMEPAD 2");
-        telemetry.addLine("       Shooting");
+        telemetry.addLine("       Gathering");
         telemetry.addLine("---Press right_trigger to control the gathering speed");
+        telemetry.addLine("       Shooting");
         telemetry.addLine("***Press left bumper to activate/deactivate the shooting motors");
         telemetry.addLine("***Press a to shoot one ring");
         telemetry.addLine("***Hold b for continuous mode shooting");

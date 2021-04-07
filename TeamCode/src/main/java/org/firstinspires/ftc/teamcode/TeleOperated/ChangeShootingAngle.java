@@ -53,7 +53,7 @@ public class ChangeShootingAngle {
     public static void AngleControl(Gamepad gamepad) {
         LimitAngle();
         AngleControl(absPosition);
-        SequentialIncrement(gamepad.a, gamepad.b);
+        SequentialIncrement(gamepad.x, gamepad.y);
     }
 
 
