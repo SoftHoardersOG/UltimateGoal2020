@@ -23,7 +23,7 @@ public class Hardware extends HardwareMapping{
 
         ResetEncoders(right_encoder, left_encoder, center_encoder);
 
-        directionChanging(back_left, front_left,shooter_right);
+        directionChanging(back_left, front_left, back_right, shooter_right,intake);
         telemetry.addLine("Direction changing for DCMotors Done!");
         telemetry.update();
 

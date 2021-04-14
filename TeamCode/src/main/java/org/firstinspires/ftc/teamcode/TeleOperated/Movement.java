@@ -7,7 +7,9 @@ import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 
 
 public class Movement{
+
     public static void driving(Gamepad gamepad) {
+
         double r = -Math.hypot(gamepad.right_stick_x, gamepad.right_stick_y);
         double robotAngle = Math.atan2(gamepad.right_stick_y, gamepad.right_stick_x) - Math.PI/4;
         double leftX = -gamepad.left_stick_x;
@@ -24,9 +26,10 @@ public class Movement{
         v3*=incremental;
         v4*=incremental;
 
-        Hardware.front_left.setPower(v1- leftX);
-        Hardware.back_left.setPower(v2- leftX);
+        Hardware.back_left.setPower(v1- leftX);
+        Hardware.front_left.setPower(v2- leftX);
         Hardware.back_right.setPower(v3+ leftX);
         Hardware.front_right.setPower(v4+ leftX);
     }
+
 }

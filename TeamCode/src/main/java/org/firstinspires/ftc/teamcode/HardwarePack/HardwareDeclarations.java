@@ -12,7 +12,7 @@ public class HardwareDeclarations {
     public static DcMotor right_encoder, left_encoder, center_encoder;
     public static DcMotor shooter_left,shooter_right;
     public static DcMotor intake;
-    public static Servo angleControlSecvL, angleControlSecvR;
+    public static Servo angle_control_left_s, angle_control_right_s;
     public static Servo shooter_idler;
     public static CRServo shooter_booster;
     public static WebcamName webcam;

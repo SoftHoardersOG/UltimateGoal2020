@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.teamcode.TeleOperated;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
@@ -26,8 +24,8 @@ public class ChangeShootingAngle {
     private static OneTap down = new OneTap();
 
     private static void AngleControl(double position) {
-        Hardware.angleControlSecvR.setPosition(position);
-        Hardware.angleControlSecvL.setPosition(1 - position);
+        Hardware.angle_control_right_s.setPosition(1-position);
+        Hardware.angle_control_left_s.setPosition(position);
     }
 
     private static void LimitAngle() {

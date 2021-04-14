@@ -24,8 +24,8 @@ public class HardwareMapping extends HardwareDeclarations{
 
         imu = getIMU("imu", hardwareMap);
 
-        angleControlSecvL = getServo("angle_control_left_s",hardwareMap);
-        angleControlSecvR = getServo("angle_control_right_s",hardwareMap);
+        angle_control_left_s = getServo("angle_control_left_s",hardwareMap);
+        angle_control_right_s = getServo("angle_control_right_s",hardwareMap);
 
         shooter_left = getDC("shooter_left", hardwareMap);
         shooter_right = getDC("shooter_right",hardwareMap);
@@ -35,8 +35,8 @@ public class HardwareMapping extends HardwareDeclarations{
 
         HardwareUtil.InitializeIMU(imu);
 
-        right_encoder = back_right;
-        left_encoder = back_left;
-        center_encoder = front_right;
+        right_encoder = front_right;
+        left_encoder = front_left;
+        center_encoder = back_left;
     }
 }
