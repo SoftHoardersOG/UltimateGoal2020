@@ -17,5 +17,6 @@ public class HardwareDeclarations {
     public static CRServo shooter_booster;
     public static WebcamName webcam;
     public static BNO055IMU imu;
+    public static BNO055IMU imu1;
 }
 

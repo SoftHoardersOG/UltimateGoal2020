@@ -2,13 +2,13 @@ package org.firstinspires.ftc.teamcode.HardwarePack;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.Utils.HardwareUtil;
+import org.firstinspires.ftc.teamcode.Utils.Hardware.HardwareUtil;
 
-import static org.firstinspires.ftc.teamcode.Utils.HardwareUtil.getCRServo;
-import static org.firstinspires.ftc.teamcode.Utils.HardwareUtil.getDC;
-import static org.firstinspires.ftc.teamcode.Utils.HardwareUtil.getIMU;
-import static org.firstinspires.ftc.teamcode.Utils.HardwareUtil.getServo;
-import static org.firstinspires.ftc.teamcode.Utils.HardwareUtil.getWebcam;
+import static org.firstinspires.ftc.teamcode.Utils.Hardware.HardwareUtil.getCRServo;
+import static org.firstinspires.ftc.teamcode.Utils.Hardware.HardwareUtil.getDC;
+import static org.firstinspires.ftc.teamcode.Utils.Hardware.HardwareUtil.getIMU;
+import static org.firstinspires.ftc.teamcode.Utils.Hardware.HardwareUtil.getServo;
+import static org.firstinspires.ftc.teamcode.Utils.Hardware.HardwareUtil.getWebcam;
 
 public class HardwareMapping extends HardwareDeclarations{
     protected static void hardwareMapping(HardwareMap hardwareMap) {
@@ -23,6 +23,7 @@ public class HardwareMapping extends HardwareDeclarations{
         webcam = getWebcam("webcam", hardwareMap);
 
         imu = getIMU("imu", hardwareMap);
+        imu1 = getIMU("imu1", hardwareMap);
 
         angle_control_left_s = getServo("angle_control_left_s",hardwareMap);
         angle_control_right_s = getServo("angle_control_right_s",hardwareMap);
@@ -34,6 +35,7 @@ public class HardwareMapping extends HardwareDeclarations{
         shooter_booster = getCRServo("shooter_booster", hardwareMap);
 
         HardwareUtil.InitializeIMU(imu);
+        HardwareUtil.InitializeIMU(imu1);
 
         right_encoder = front_right;
         left_encoder = front_left;

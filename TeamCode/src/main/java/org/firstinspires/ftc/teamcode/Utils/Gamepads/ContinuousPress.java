@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.teamcode.Utils;
+package org.firstinspires.ftc.teamcode.Utils.Gamepads;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class ContinuousPress {
-
+//not tested
     private final ElapsedTime timer;
     private final double  incrementSpeedPerSecond;
     private double startTime;

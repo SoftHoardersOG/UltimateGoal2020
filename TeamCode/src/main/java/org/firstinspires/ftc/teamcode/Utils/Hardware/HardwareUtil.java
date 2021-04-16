@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Utils;
+package org.firstinspires.ftc.teamcode.Utils.Hardware;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
@@ -19,6 +19,11 @@ import org.openftc.easyopencv.OpenCvPipeline;
 import java.util.Objects;
 
 public class HardwareUtil {
+    private static Telemetry telemetry;
+
+    public static void setTelemetry(Telemetry telemetry) {
+        HardwareUtil.telemetry = telemetry;
+    }
 
     private HardwareUtil() {
     }
@@ -27,14 +32,16 @@ public class HardwareUtil {
         try {
             return hm.get(DcMotor.class, name);
         } catch (Exception exception) {
+            telemetry.addLine(name + " is null");
             return null;
         }
     }
 
-    public static  BNO055IMU getIMU(String name, HardwareMap hm){
-        try{
+    public static BNO055IMU getIMU(String name, HardwareMap hm){
+         try{
             return hm.get(BNO055IMU.class,name);
         } catch (Exception exception){
+             telemetry.addLine(name + " is null");
             return null;
         }
     }
@@ -43,6 +50,7 @@ public class HardwareUtil {
         try {
             return hm.get(Servo.class, name);
         } catch (Exception exception) {
+            telemetry.addLine(name + " is null");
             return null;
         }
     }
@@ -51,6 +59,7 @@ public class HardwareUtil {
         try {
             return hm.get(CRServo.class, name);
         } catch (Exception exception) {
+            telemetry.addLine(name + " is null");
             return null;
         }
     }
@@ -60,6 +69,7 @@ public class HardwareUtil {
             return  hm.get(WebcamName.class,name);
         }
         catch (Exception exception){
+            telemetry.addLine(name + " is null");
             return null;
         }
     }
@@ -68,6 +78,7 @@ public class HardwareUtil {
         try {
             return hm.get(DigitalChannel.class, name);
         } catch (Exception exception) {
+            telemetry.addLine(name + " is null");
             return null;
         }
     }
@@ -146,7 +157,8 @@ public class HardwareUtil {
         try{
             imu.initialize(parameters);
         } catch (Exception exception){
-            //Imu is null
+            telemetry.addLine("imu" + " is null");
+
         }
     }
 

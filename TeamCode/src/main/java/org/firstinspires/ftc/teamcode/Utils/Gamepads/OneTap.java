@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode.Utils;
+package org.firstinspires.ftc.teamcode.Utils.Gamepads;
 
 public class OneTap {
     private boolean firstPress=true;
-    private static int count=0;
+    private int count=0;
 
-    public static void incrementCount(){
+    public void incrementCount(){
         count++;
     }
 
