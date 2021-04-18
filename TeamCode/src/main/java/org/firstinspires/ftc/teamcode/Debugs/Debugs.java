@@ -9,6 +9,7 @@ import org.firstinspires.ftc.teamcode.TeleOperated.ChangeShootingAngle;
 import org.firstinspires.ftc.teamcode.TeleOperated.Intake;
 import org.firstinspires.ftc.teamcode.TeleOperated.Shooter;
 import org.firstinspires.ftc.teamcode.Utils.Autonomous.NormalizeAngle;
+import org.firstinspires.ftc.teamcode.Utils.Hardware.HardwareUtil;
 
  public class Debugs {
 
@@ -47,6 +48,13 @@ import org.firstinspires.ftc.teamcode.Utils.Autonomous.NormalizeAngle;
         telemetry.addData("left value: ", Hardware.left_encoder.getCurrentPosition());
         telemetry.addData("right value: ", Hardware.right_encoder.getCurrentPosition());
         telemetry.addData("center value: ", Hardware.center_encoder.getCurrentPosition());
+        if(update){
+            telemetry.update();
+        }
+    }
+
+    public static void grabberPosition(Telemetry telemetry, boolean update){
+        telemetry.addLine("grabber position: "+Hardware.grabber.getCurrentPosition());
         if(update){
             telemetry.update();
         }

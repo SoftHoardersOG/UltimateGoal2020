@@ -19,7 +19,7 @@ public class Intake {
     private static final OneTap outtakeButton = new OneTap();
     private static final OneTap diskNormalizerButton = new OneTap();
 
-    private static final TwoStateMotorWithDelay DiskNormalizerBeforeIntake = new TwoStateMotorWithDelay(-1800, 1700);
+    private static final TwoStateMotorWithDelay DiskNormalizerBeforeIntake = new TwoStateMotorWithDelay(-1800, 0);
 
     private static final ChangeState intakeState = new ChangeState();
     private static final ChangeState outtakeState = new ChangeState();
@@ -61,12 +61,12 @@ public class Intake {
         if (!Shooter.shooter.getIsMotorRunning()) {
             oneSpeedIntake(gamepad.right_bumper);
         }
-        DiskNormalizerBeforeIntake.DiskNormalizer(gamepad.y);
     }
     public static void OutTakeOneSpeed(Gamepad gamepad){
         if (!Shooter.shooter.getIsMotorRunning()) {
             oneSpeedOutTake(gamepad.right_bumper);
         }
+        DiskNormalizerBeforeIntake.DiskNormalizer(gamepad.y);
     }
 
 }

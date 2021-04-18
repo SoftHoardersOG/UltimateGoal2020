@@ -8,6 +8,7 @@ import org.openftc.easyopencv.OpenCvPipeline;
 
 import static org.firstinspires.ftc.teamcode.Utils.Hardware.HardwareUtil.OpenCVSetup;
 import static org.firstinspires.ftc.teamcode.Utils.Hardware.HardwareUtil.ResetEncoders;
+import static org.firstinspires.ftc.teamcode.Utils.Hardware.HardwareUtil.RunToPosition;
 import static org.firstinspires.ftc.teamcode.Utils.Hardware.HardwareUtil.directionChanging;
 import static org.firstinspires.ftc.teamcode.Utils.Hardware.HardwareUtil.powerBehaviorChanging;
 
@@ -22,7 +23,8 @@ public class Hardware extends HardwareMapping{
         telemetry.addLine("Hardware Mapping Done!");
 
 
-        ResetEncoders(right_encoder, left_encoder, center_encoder);
+        ResetEncoders(right_encoder, left_encoder, center_encoder,grabber);
+        RunToPosition(grabber);
 
         directionChanging(back_left, front_left, back_right, shooter_right,intake);
         telemetry.addLine("Direction changing for DCMotors Done!");
@@ -37,8 +39,8 @@ public class Hardware extends HardwareMapping{
 
     }
 
-    public static void init(HardwareMap hm, Telemetry telemetry, OpenCvPipeline process) {
-
+    public static void init(HardwareMap hm, Telemetry telemetry, OpenCvPipeline process) throws InterruptedException {
+        HardwareUtil.setTelemetry(telemetry);
         telemetry.addLine("Initializing...");
         telemetry.update();
 

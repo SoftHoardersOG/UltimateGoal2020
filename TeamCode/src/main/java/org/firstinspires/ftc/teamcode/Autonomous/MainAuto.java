@@ -10,12 +10,13 @@ public class MainAuto extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        Hardware.init(hardwareMap, telemetry);
-        GyroPID gyroPID = new GyroPID();
+        Hardware.init(hardwareMap, telemetry, DiskAmountDetection.pipeline);
+       // GyroPID gyroPID = new GyroPID();
         waitForStart();
-        gyroPID.StartPID(90);
+        //gyroPID.StartPID(90);
         while (opModeIsActive() && !isStopRequested()) {
-            gyroPID.PID(telemetry);
+            DiskAmountDetection.startDetection(telemetry, true);
+            // gyroPID.PID(telemetry);
         }
     }
 }

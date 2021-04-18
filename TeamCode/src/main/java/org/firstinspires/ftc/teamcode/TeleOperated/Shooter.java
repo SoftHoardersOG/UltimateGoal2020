@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode.TeleOperated;
 
 
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -10,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Utils.Devices;
 import org.firstinspires.ftc.teamcode.Utils.Gamepads.OneTap;
 import org.firstinspires.ftc.teamcode.Utils.Logics.ChangeState;
 import org.firstinspires.ftc.teamcode.Utils.Logics.DelayedAction;
-import org.firstinspires.ftc.teamcode.Utils.Logics.ServoTwoPosition;
+import org.firstinspires.ftc.teamcode.Utils.Logics.ServoToPosition;
 
 public class Shooter {
     public static final double push = 0.74;
@@ -21,7 +20,7 @@ public class Shooter {
     private static final OneTap idlerSequential = new OneTap();
     private static final OneTap motor = new OneTap();
     private static final OneTap idlerContinuous = new OneTap();
-    private static final ServoTwoPosition singleShooting = new ServoTwoPosition(Hardware.shooter_idler, "shooter_idler", free, push);
+    private static final ServoToPosition singleShooting = new ServoToPosition(Hardware.shooter_idler, "shooter_idler", free, push);
     public static final ChangeState shooter = new ChangeState();
     private static final ElapsedTime timer = new ElapsedTime(ElapsedTime.Resolution.MILLISECONDS);
     private static final DelayedAction returnServo = new DelayedAction(shootTime, timer);
@@ -70,8 +69,8 @@ public class Shooter {
             ShootingMotors(gamepad.left_bumper);
         }
         SequentialShooting(gamepad.a);
-        ContinuousShooting(gamepad.b);
-        singleShooting.modifyPosition(gamepad.x);
+        //ContinuousShooting(gamepad.b);
+        //singleShooting.modifyPosition(gamepad.x);
     }
 
 

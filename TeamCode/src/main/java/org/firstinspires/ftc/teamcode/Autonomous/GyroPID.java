@@ -32,7 +32,7 @@ public class GyroPID {
         }
     }
 
-    public void PID(Telemetry telemetry) {
+    public void RunPID(Telemetry telemetry) {
         telemetry.addData("error: ", error);
         telemetry.update();
         error = target - NormalizeAngle.GetAngle();

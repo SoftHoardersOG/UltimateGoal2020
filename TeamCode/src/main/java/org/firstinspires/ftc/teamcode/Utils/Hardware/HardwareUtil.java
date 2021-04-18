@@ -14,9 +14,11 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvPipeline;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class HardwareUtil {
     private static Telemetry telemetry;
@@ -92,6 +94,22 @@ public class HardwareUtil {
         }
     }
 
+    public static void RunWithoutEncoders(DcMotor... dcMotors){
+        for(DcMotor dcMotor : dcMotors){
+            if(dcMotor != null){
+                dcMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+            }
+        }
+    }
+
+    public static void RunToPosition(DcMotor... dcMotors){
+        for(DcMotor dcMotor : dcMotors){
+            if(dcMotor!=null){
+                dcMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            }
+        }
+    }
+
     public static void powerBehaviorChanging(DcMotor... dcMotors) {
         for (DcMotor dcMotor : dcMotors) {
             if (dcMotor != null)
@@ -120,7 +138,7 @@ public class HardwareUtil {
         }
     }
 
-    public static void OpenCVSetup(HardwareMap hm, OpenCvPipeline process, Telemetry telemetry, WebcamName webcam) {
+    public static void OpenCVSetup(HardwareMap hm, OpenCvPipeline process, Telemetry telemetry, WebcamName webcam) throws InterruptedException {
         if(webcam!=null && process!=null) {
 
             int cameraMonitorID = hm.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hm.appContext.getPackageName());
@@ -128,11 +146,14 @@ public class HardwareUtil {
             telemetry.update();
 
             OpenCvCamera cvCamera = OpenCvCameraFactory.getInstance().createWebcam(webcam, cameraMonitorID);
+
             telemetry.addLine("CVCam initialisation DONE!");
             telemetry.update();
 
-            for (int i = 1; i <= 100; i++)
-                cvCamera.openCameraDevice();
+            for (int i = 1; i <= 10; i++)
+            {cvCamera.openCameraDevice();
+                TimeUnit.MILLISECONDS.sleep(20);
+            }
             telemetry.addLine("Camera opened DONE!");
             telemetry.update();
 
@@ -140,7 +161,7 @@ public class HardwareUtil {
             telemetry.addLine("Pipeline seted DONE!");
             telemetry.update();
 
-            cvCamera.startStreaming(640, 480);
+            cvCamera.startStreaming(176, 144, OpenCvCameraRotation.SIDEWAYS_LEFT);
             telemetry.addLine("Stream started DONE!");
             telemetry.update();
         }

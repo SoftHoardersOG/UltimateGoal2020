@@ -18,9 +18,14 @@ public class HardwareMapping extends HardwareDeclarations{
         back_left = getDC("back_left", hardwareMap);
         back_right = getDC("back_right", hardwareMap);
 
+        grabber = getDC("grabber", hardwareMap);
+        grabber_back = getServo("grabber_back", hardwareMap);
+        grabber_front = getServo("grabber_front", hardwareMap);
+
         intake = getDC("intake",hardwareMap);
 
-        webcam = getWebcam("webcam", hardwareMap);
+        webcam = getWebcam("Webcam 1", hardwareMap);
+        cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
 
         imu = getIMU("imu", hardwareMap);
         imu1 = getIMU("imu1", hardwareMap);
