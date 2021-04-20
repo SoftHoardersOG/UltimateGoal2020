@@ -25,21 +25,17 @@ public class Teleoperated extends LinearOpMode {
         Shooter.ShooterAfterStart();
 
         while (!isStopRequested() && opModeIsActive()) {
-            telemetry.addLine(Hardware.grabber.getMode()+"");
             Movement.driving(gamepad1);
             Shooter.ShooterControl(gamepad1);
             Intake.IntakeOneSpeed(gamepad1);
             Intake.OutTakeOneSpeed(gamepad2);
             ChangeShootingAngle.AngleControl(gamepad2);
             Wobble.wobbleControl(gamepad1);
-            telemetry.addLine("grabber current power "+ Hardware.grabber.getPowerFloat());
-            Debugs.grabberPosition(telemetry, true);
-            //Debugs.motorVelocity(telemetry,true);
-            //Instruction.Commands(telemetry,false);
-//            Debugs.angleDebug(telemetry,true);
-            //Debugs.encoderDebug(telemetry,false);
-            //Debugs.changeShooterAngleDebug(telemetry,true);
-            //Debugs.movementSpeedDebug(telemetry,true );
+            Debugs.encoderDebug(telemetry,true);
+            telemetry.addData("x angle velocity",Hardware.imu.getAngularVelocity().xRotationRate);
+            telemetry.addData("y angle velocity",Hardware.imu.getAngularVelocity().yRotationRate);
+            telemetry.addData("z angle velocity",Hardware.imu.getAngularVelocity().zRotationRate);
+            telemetry.update();
         }
     }
 }

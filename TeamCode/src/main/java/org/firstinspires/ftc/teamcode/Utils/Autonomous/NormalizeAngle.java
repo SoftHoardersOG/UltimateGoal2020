@@ -9,7 +9,7 @@ public class NormalizeAngle {
     private static final double NormalizeValue = 180f;
 
     public static double GetAngle() {
-        return (Normalize(Hardware.imu) + Normalize(Hardware.imu1)) / 2;
+        return (Normalize(Hardware.imu));
     }
 
     public static double GetRawAngle(BNO055IMU imu) {

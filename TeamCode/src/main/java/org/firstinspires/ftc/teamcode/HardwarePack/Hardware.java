@@ -23,10 +23,10 @@ public class Hardware extends HardwareMapping{
         telemetry.addLine("Hardware Mapping Done!");
 
 
-        ResetEncoders(right_encoder, left_encoder, center_encoder,grabber);
+        ResetEncoders(grabber,front_encoder, center_encoder, front_left, front_right, back_left, back_right, shooter_right, shooter_left, intake);
         RunToPosition(grabber);
 
-        directionChanging(back_left, front_left, back_right, shooter_right,intake);
+        directionChanging(back_left, front_left, shooter_right,intake);
         telemetry.addLine("Direction changing for DCMotors Done!");
 
 
@@ -48,11 +48,13 @@ public class Hardware extends HardwareMapping{
         telemetry.addLine("Hardware Mapping Done!");
         telemetry.update();
 
+
         OpenCVSetup(hm, process, telemetry, webcam);
         telemetry.addLine("Open CV setup Done!");
         telemetry.update();
 
-        ResetEncoders(right_encoder, left_encoder, center_encoder);
+        ResetEncoders(front_encoder, center_encoder);
+        RunToPosition(grabber);
 
         directionChanging(back_left, front_left);
         telemetry.addLine("Direction changing for DCMotors Done!");

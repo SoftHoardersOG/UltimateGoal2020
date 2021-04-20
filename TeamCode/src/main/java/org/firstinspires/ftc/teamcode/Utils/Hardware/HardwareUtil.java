@@ -105,7 +105,11 @@ public class HardwareUtil {
     public static void RunToPosition(DcMotor... dcMotors){
         for(DcMotor dcMotor : dcMotors){
             if(dcMotor!=null){
+                dcMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                dcMotor.setTargetPosition(0);
+                dcMotor.setPower(0);
                 dcMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                dcMotor.setTargetPosition(0);
             }
         }
     }

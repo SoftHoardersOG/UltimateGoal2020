@@ -45,8 +45,7 @@ import org.firstinspires.ftc.teamcode.Utils.Hardware.HardwareUtil;
     }
 
     public static void encoderDebug(Telemetry telemetry, boolean update){
-        telemetry.addData("left value: ", Hardware.left_encoder.getCurrentPosition());
-        telemetry.addData("right value: ", Hardware.right_encoder.getCurrentPosition());
+        telemetry.addData("right value: ", Hardware.front_encoder.getCurrentPosition());
         telemetry.addData("center value: ", Hardware.center_encoder.getCurrentPosition());
         if(update){
             telemetry.update();

@@ -10,6 +10,9 @@ import org.firstinspires.ftc.teamcode.Utils.Gamepads.OneTap;
 
 public class ChangeShootingAngle {
 
+    public static final double shootPosition = 0.62; // it was working with 0.57
+    public static final double intakePosition = 0.48;
+
     private static final double incrementValue = 0.03;
     private static final double upperLimit = 0.7;
     private static final double lowerLimit = 0;
@@ -21,6 +24,7 @@ public class ChangeShootingAngle {
     public static double getAbsPosition() {
         return absPosition;
     }
+
 
     private static double absPosition = 0;
     private static OneTap up = new OneTap();
@@ -55,7 +59,7 @@ public class ChangeShootingAngle {
         LimitAngle();
         AngleControl(absPosition);
         ShootingIntakePositions(gamepad.a,gamepad.b);
-        SequentialIncrement(gamepad.x, gamepad.y);
+        SequentialIncrement(gamepad.dpad_up, gamepad.dpad_down);
     }
 
     public static void ShootingIntakePositions(boolean firstButton, boolean secondButton) {

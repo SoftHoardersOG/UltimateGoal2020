@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.TeleOperated;
 
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -12,9 +13,9 @@ import org.firstinspires.ftc.teamcode.Utils.Logics.DelayedAction;
 import org.firstinspires.ftc.teamcode.Utils.Logics.ServoToPosition;
 
 public class Shooter {
-    public static final double push = 0.74;
+    public static final double push = 0.68;
     public static final double free = 0.80;
-    private static final double shootSpeed = 1700;
+    public static final double shootSpeed = 1700;
     private static final int shootTime = 100;
     private static final int returnTime = 125;
     private static final OneTap idlerSequential = new OneTap();
@@ -49,7 +50,7 @@ public class Shooter {
         }
     }
 
-    private static void SequentialShooting(boolean buttonForSequentialShooting) {
+    public static void SequentialShooting(boolean buttonForSequentialShooting) {
 
         if (idlerSequential.onPress(buttonForSequentialShooting)) {
             Devices.setServoPosition(Hardware.shooter_idler, "shooter_idler", push);
@@ -60,9 +61,18 @@ public class Shooter {
         }
     }
 
+    public static void AutonomousSequentialShooting(LinearOpMode opMode){
+        Hardware.shooter_idler.setPosition(push);
+        opMode.sleep(100);
+        Hardware.shooter_idler.setPosition(free);
+
+    }
+
     public static void ShootingMotors(boolean buttonForStartingTheShooter) {
         shooter.changeMotorStateSpeed(motor.onPress(buttonForStartingTheShooter), shootSpeed, Hardware.shooter_left, Hardware.shooter_right);
     }
+
+
 
     public static void ShooterControl(Gamepad gamepad) {
         if (!Intake.diskNormalizer.getIsMotorRunning()) {
