@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.HardwarePack;
 
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
@@ -23,7 +24,7 @@ public class Hardware extends HardwareMapping{
         telemetry.addLine("Hardware Mapping Done!");
 
 
-        ResetEncoders(grabber,front_encoder, center_encoder, front_left, front_right, back_left, back_right, shooter_right, shooter_left, intake);
+        ResetEncoders(grabber, left_encoder, center_encoder, right_encoder, shooter_right, shooter_left, intake);
         RunToPosition(grabber);
 
         directionChanging(back_left, front_left, shooter_right,intake);
@@ -53,7 +54,7 @@ public class Hardware extends HardwareMapping{
         telemetry.addLine("Open CV setup Done!");
         telemetry.update();
 
-        ResetEncoders(front_encoder, center_encoder);
+        ResetEncoders(left_encoder, center_encoder);
         RunToPosition(grabber);
 
         directionChanging(back_left, front_left);

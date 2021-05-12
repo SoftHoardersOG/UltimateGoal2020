@@ -10,7 +10,7 @@ import org.firstinspires.ftc.teamcode.Utils.Gamepads.OneTap;
 
 public class ChangeShootingAngle {
 
-    public static final double shootPosition = 0.62; // it was working with 0.57
+    public static final double shootPosition = 0.66; // it was working with 0.57
     public static final double intakePosition = 0.48;
 
     private static final double incrementValue = 0.03;
@@ -64,9 +64,9 @@ public class ChangeShootingAngle {
 
     public static void ShootingIntakePositions(boolean firstButton, boolean secondButton) {
         if (firstButton) {
-           absPosition=0.57; //shooting
+           absPosition=shootPosition; //shooting
         }else if(secondButton){
-          absPosition=0.48; //intake
+          absPosition=intakePosition; //intake
         }
     }
 

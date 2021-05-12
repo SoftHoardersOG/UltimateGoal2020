@@ -42,7 +42,11 @@ public class HardwareMapping extends HardwareDeclarations{
         HardwareUtil.InitializeIMU(imu);
         HardwareUtil.InitializeIMU(imu1);
 
-        front_encoder = front_left;
-        center_encoder = back_left;
+        left_encoder = back_left;
+        center_encoder = back_right;
+        right_encoder = front_left;
+
+        //wall_left=getServo("wall_left", hardwareMap);
+        //wall_right=getServo("wall_right", hardwareMap);
     }
 }

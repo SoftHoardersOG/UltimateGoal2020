@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
-import org.firstinspires.ftc.teamcode.Utils.Hardware.HardwareUtil;
 
 public class runOnDirection {
     private static final int ticksPerRotation = 1440;
@@ -24,7 +23,7 @@ public class runOnDirection {
     public static void startRunning(double distanceInCm, Directions direction, double maxPower) {
         int ticksForDistance = (int) (distanceInCm / wheelLength * ticksPerRotation);
         if (direction == Directions.FORWARD) {
-            dcMotor = Hardware.front_encoder;
+            dcMotor = Hardware.left_encoder;
         }
         target = (dcMotor.getCurrentPosition()) + ticksForDistance;
         runOnDirection.maxPower = maxPower;

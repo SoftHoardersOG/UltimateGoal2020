@@ -2,14 +2,13 @@
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.TeleOperated.ChangeShootingAngle;
-import org.firstinspires.ftc.teamcode.TeleOperated.Intake;
 import org.firstinspires.ftc.teamcode.TeleOperated.Shooter;
 import org.firstinspires.ftc.teamcode.Utils.Autonomous.NormalizeAngle;
-import org.firstinspires.ftc.teamcode.Utils.Hardware.HardwareUtil;
 
  public class Debugs {
 
@@ -30,6 +29,13 @@ import org.firstinspires.ftc.teamcode.Utils.Hardware.HardwareUtil;
         }
     }
 
+    public static void WheelControl(Gamepad gamepad){
+        Hardware.front_right.setPower(gamepad.left_stick_x);
+        Hardware.front_left.setPower(gamepad.left_stick_x);
+        Hardware.back_right.setPower(gamepad.left_stick_x);
+        Hardware.back_left.setPower(gamepad.left_stick_x);
+    }
+
     public static void angleDebug(Telemetry telemetry,boolean update){
         telemetry.addData("Current Angle: ",NormalizeAngle.GetAngle());
 
@@ -45,8 +51,9 @@ import org.firstinspires.ftc.teamcode.Utils.Hardware.HardwareUtil;
     }
 
     public static void encoderDebug(Telemetry telemetry, boolean update){
-        telemetry.addData("right value: ", Hardware.front_encoder.getCurrentPosition());
+        telemetry.addData("left value: ", Hardware.left_encoder.getCurrentPosition());
         telemetry.addData("center value: ", Hardware.center_encoder.getCurrentPosition());
+        telemetry.addData("right value: ", -Hardware.right_encoder.getCurrentPosition());
         if(update){
             telemetry.update();
         }

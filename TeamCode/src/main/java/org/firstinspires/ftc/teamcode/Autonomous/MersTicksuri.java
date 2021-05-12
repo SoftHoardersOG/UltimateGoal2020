@@ -2,13 +2,12 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 
 public class MersTicksuri {
-    private static final int ticksPerRotation = (int) (1440 / 1.5);
+    private static final int ticksPerRotation = (int) (2048*4);
     private static final double wheelRadius = 1.9;
     private static final double wheelLength = 2 * Math.PI * wheelRadius;
     private static DcMotor dcMotor;
@@ -18,16 +17,18 @@ public class MersTicksuri {
     private static int ticksPerCm = (int)(ticksPerRotation/wheelLength);
     private static int accelerationDist;
     private static int decelerationDist;
-    private static double stopPower = -0.3; // -> 0.2 mue
+    private static double stopPower = 0; // -> 0
+    public static double initalDist = 0;
 
 
     public static void startRunning(double distanceInCm, Directions direction, double maxPower) {
-        accelerationDist = (int)(distanceInCm/3.0*ticksPerCm);
-        decelerationDist = (int)(distanceInCm/3.0*ticksPerCm);
         int ticksForDistance = (int) (distanceInCm / wheelLength * ticksPerRotation);
         if (direction == Directions.FORWARD) {
-            dcMotor = Hardware.front_encoder;
+            dcMotor = Hardware.left_encoder;
         }
+        initalDist = dcMotor.getCurrentPosition();
+        accelerationDist = (int)(distanceInCm/2.0*ticksPerCm+initalDist);
+        decelerationDist = (int)(distanceInCm/2.0*ticksPerCm+initalDist);
         target = (dcMotor.getCurrentPosition()) + ticksForDistance;
         MersTicksuri.maxPower = maxPower;
         int current = (dcMotor.getCurrentPosition());
@@ -57,11 +58,11 @@ public class MersTicksuri {
     public static void control(Telemetry telemetry) {
         int current = (dcMotor.getCurrentPosition());
         error = target - current;
-//        telemetry.addLine("The error is " + error);
-//        telemetry.update();
-        if (target-error <= accelerationDist) {
+        telemetry.addLine("The error is " + error);
+        telemetry.update();
+        if (current <= accelerationDist) {
             goForward(maxPower * error / accelerationDist);
-        } else if (target-error >= target - decelerationDist) {
+        } else if (error>= decelerationDist) {
             //telemetry.addLine("pula");
             //telemetry.update();
             int descError = target - decelerationDist;

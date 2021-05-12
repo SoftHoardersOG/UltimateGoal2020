@@ -53,8 +53,8 @@ public class GyroPID {
     }
 
     public static void RunPID(Telemetry telemetry) {
-         telemetry.addData("velocity: ", error);
-        telemetry.update();
+//         telemetry.addData("velocity: ", error);
+//        telemetry.update();
         error = target - NormalizeAngle.GetAngle();
         Sum += error;
         double IEffect = Sum * I;

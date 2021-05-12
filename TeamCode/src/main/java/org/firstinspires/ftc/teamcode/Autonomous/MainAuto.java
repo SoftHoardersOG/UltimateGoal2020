@@ -10,12 +10,13 @@ import org.firstinspires.ftc.teamcode.Debugs.Debugs;
 import org.firstinspires.ftc.teamcode.HardwarePack.Hardware;
 import org.firstinspires.ftc.teamcode.TeleOperated.ChangeShootingAngle;
 import org.firstinspires.ftc.teamcode.TeleOperated.Shooter;
+import org.firstinspires.ftc.teamcode.TeleOperated.Wobble;
 import org.firstinspires.ftc.teamcode.Utils.Autonomous.NormalizeAngle;
 
 @TeleOp(name = "Autonomous")
 public class MainAuto extends LinearOpMode {
 
-    double normalizeCommand(double Command){
+    private static double normalizeCommand(double Command){
 
         if (Command > 180) {
             Command -= 360;
@@ -25,12 +26,21 @@ public class MainAuto extends LinearOpMode {
         return Command;
     }
 
+    private static void shoot(LinearOpMode teleOp){
+        Hardware.shooter_idler.setPosition(Shooter.push);
+        teleOp.sleep(100);
+        Hardware.shooter_idler.setPosition(Shooter.free);
+        teleOp.sleep(100);
+
+    }
+
     private static final int shootSpeed = 1350; //1600
-    private static final double shootPosition = 0.68; //0.6
+    private static final double shootPosition = 0.69; //0.66 ; 0.6
     @Override
     public void runOpMode() throws InterruptedException {
 
         Hardware.init(hardwareMap, telemetry);
+        //Wobble.initialization();
         Hardware.shooter_idler.setPosition(Shooter.free);
         waitForStart();
         double starPos = NormalizeAngle.GetAngle();
@@ -40,38 +50,43 @@ public class MainAuto extends LinearOpMode {
         ((DcMotorEx)Hardware.shooter_right).setVelocity(shootSpeed);
         ((DcMotorEx)Hardware.shooter_left).setVelocity(shootSpeed);
 
-        MersTicksuri.toPosition(170, Directions.FORWARD,0.7,telemetry, MainAuto.this);
-        double command = starPos - NormalizeAngle.GetAngle();
-        command = normalizeCommand(command);
+        //170 pt shooting
 
-       // command+=4;
-        command = normalizeCommand(command-1); //command
+        MersTicksuri.toPosition(150, Directions.FORWARD,0.5,telemetry, MainAuto.this);
+        sleep(300);
+
+        double command = starPos - NormalizeAngle.GetAngle();
+
+        //command+=4;
+        command = normalizeCommand(command); //command
         int debugpos = Hardware.center_encoder.getCurrentPosition();
         GyroPID.rotate(command,telemetry,MainAuto.this);
         sleep(300);
-        Hardware.shooter_idler.setPosition(Shooter.push);
-        sleep(100);
-        Hardware.shooter_idler.setPosition(Shooter.free);
-        sleep(100);
-        command=7; // 6
-        GyroPID.rotate(command,telemetry,MainAuto.this);
-        sleep(300);
-        Hardware.shooter_idler.setPosition(Shooter.push);
-        sleep(100);
-        Hardware.shooter_idler.setPosition(Shooter.free);
-        sleep(100);
-        command=-10; //-10
-        GyroPID.rotate(command,telemetry,MainAuto.this);
-        sleep(300);
-        Hardware.shooter_idler.setPosition(Shooter.push);
-        sleep(100);
-        //Hardware.shooter_idler.setPosition(Shooter.free);
+       shoot(this);
 
-        //pid with new command
-        telemetry.update();
+        command=6; // 6
+        GyroPID.rotate(command,telemetry,MainAuto.this);
+        sleep(300);
+       shoot(this);
+
+        command=-11; //-10
+        GyroPID.rotate(command,telemetry,MainAuto.this);
+        sleep(300);
+       shoot(this);
+
+
+
+        ((DcMotorEx) Hardware.shooter_left).setVelocity(0);
+        ((DcMotorEx) Hardware.shooter_right).setVelocity(0);
+        command = starPos - NormalizeAngle.GetAngle();
+        command = normalizeCommand(command);
+        GyroPID.rotate(command,telemetry,MainAuto.this);
+        sleep(300);
+//        MersTicksuri.toPosition(15, Directions.FORWARD,0.7,telemetry, MainAuto.this);
+
         while(opModeIsActive() && !isStopRequested()){
-            telemetry.addLine("CENTER" + debugpos);
-            telemetry.update();
+            //telemetry.addLine("CENTER" + debugpos);
+            //telemetry.update();
 
         }
 

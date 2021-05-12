@@ -8,10 +8,10 @@ import org.firstinspires.ftc.teamcode.Utils.Gamepads.OneTap;
 import org.firstinspires.ftc.teamcode.Utils.Logics.ServoToPosition;
 
 public class Wobble {
-    private static final double back_grabPosition = 0.14f;
-    private static final double back_freePosition = 0.47f;
-    private static final double front_grabPosition = 0.89f;
-    private static final double front_freePosition = 0.55f;
+    private static final double back_grabPosition = 0.3f;
+    private static final double back_freePosition = 0.7f;
+    private static final double front_grabPosition = 0.7f;
+    private static final double front_freePosition = 0.3f;
     private static final ServoToPosition servoToPosition_front = new ServoToPosition(Hardware.grabber_front, "grabber_front", front_freePosition, front_grabPosition);
     private static final ServoToPosition servoToPosition_back = new ServoToPosition(Hardware.grabber_back, "grabber_back", back_freePosition, back_grabPosition);
 
@@ -41,8 +41,9 @@ public class Wobble {
 
     public static void wobbleControl(Gamepad gamepad) {
         servoPositions(gamepad.x);
-        motorArmToPosition(gamepad.dpad_down, 700);
+        motorArmToPosition(gamepad.dpad_down, 600);
         motorArmToPosition(gamepad.dpad_up, 0);
-
+        motorArmToPosition(gamepad.dpad_right,260);
+        //TODO cine o mai fi ca mine
     }
 }
